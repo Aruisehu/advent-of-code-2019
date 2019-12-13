@@ -13,7 +13,7 @@ namespace Day4
             List<int> results = new List<int>();
             for (int i = start; i <= end; i++)
             {
-                if (NeverDecrease(i) && HasAdjacentDigits(i) && HasTwoAdjacentDigits(i))
+                if (NeverDecrease(i) && HasTwoAdjacentDigits(i))
                 {
                     results.Add(i);
                 }
@@ -24,44 +24,47 @@ namespace Day4
         static bool NeverDecrease(int x)
         {
             int[] digits = GetDigits(x);
-            bool res = true;
             for (int i = 0; i < digits.Length - 1; i++) 
             {
                 if(digits[i + 1] < digits[i])
                 {
-                    res = false;
+                    return false;
                 }
             }
-            return res;
+            return true;
         }
 
         static bool HasAdjacentDigits(int x)
         {
             int[] digits = GetDigits(x);
-            bool res = false;
             for (int i = 0; i < digits.Length - 1; i++) 
             {
-                if(digits[i + 1] ==digits[i])
+                if(digits[i + 1] == digits[i])
                 {
-                    res = true;
+                    return true;
                 }
             }
-            return res;
+            return false;
         }
 
         static bool HasTwoAdjacentDigits(int x)
         {
             int[] digits = GetDigits(x);
-            bool res = false;
-            for (int i = 0; i < digits.Length - 2 ; i++) 
+            int count = 0;
+            int lastDigit = 10;
+            foreach (int digit in digits) 
             {
-                if((digits[i + 1] == digits[i] && digits[i + 2] != digits[i + 1]) || 
-                    (digits[i + 1] != digits[i] && digits[i + 2] == digits[i + 1]))
+                if (digit == lastDigit)
                 {
-                    res = true;
-                }
+                    count++;
+                } 
+                else {
+                    if (count == 2) return true;
+                    count = 1;
+                    lastDigit = digit;
+                } 
             }
-            return res;
+            return count == 2;
         }
 
         static int[] GetDigits(int x)

@@ -75,7 +75,5 @@ end
 dist2 = intersections.map do |h|
     point1.index(h) + point2.index(h)
 end
-p(point1)
-p(point2)
-p(dist2)
+
 p(dist2[1..-1].min)

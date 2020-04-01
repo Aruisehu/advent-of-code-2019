@@ -106,7 +106,7 @@ def to_fuel(x):
     res = trunc(x / 3) - 2
     return max(0, res)
 
-def fuck(x):
+def resolve(x):
     fuel = to_fuel(x)
     total_fuel = fuel
     while (fuel != 0):
@@ -114,4 +114,4 @@ def fuck(x):
         total_fuel += fuel
     return total_fuel
 
-print(reduce(lambda x, y: x+y, list(map(fuck, modules)), 0))
+print(reduce(lambda x, y: x+y, list(map(resolve, modules)), 0))

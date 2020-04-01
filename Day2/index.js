@@ -24,9 +24,7 @@ for (let noun = 0; noun < 100; noun++) {
                     opcodes[third] = opcodes[first] * opcodes[second];
                     break;
                 case 99:
-                    if(opcodes[0] == 19690720) {
-                        console.log(`La bonne réponse est noun = ${noun}, verb = ${verb}, et donc total de ${100 * noun + verb}` );
-                    }
+                    
                     break;
                 default:
                     console.error("You suck");

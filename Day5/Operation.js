@@ -1,11 +1,15 @@
 let funcs = require("./functions");
 
-const nbOperands = [0,4,4,2,2];
+const nbOperands = [0,4,4,2,2,3,3,4,4];
 const functions = {
     "1": funcs.add,
     "2": funcs.mult,
     "3": funcs.input,
     "4": funcs.output,
+    "5": funcs.jumpTrue,
+    "6": funcs.jumpFalse,
+    "7": funcs.less,
+    "8": funcs.equals,
     "99": funcs.nothing,
 };
 
@@ -22,7 +26,7 @@ class Operation {
     }
 
     getNextIndex() {
-        this.index += 1 + this.operands.length;
+        this.index += nbOperands[this.operator];
     }
 
     loadNextOperation() {
@@ -40,9 +44,14 @@ class Operation {
     }
 
     executeOperation() {
-        let func = functions[this.operator.toString()];
-        this.opcodes = func(this.opcodes, this.operands, this.modes);
-        this.getNextIndex();
+        const func = functions[this.operator.toString()];
+        const result = func(this.opcodes, this.operands, this.modes);
+        this.opcodes = result.opcodes;
+        if (result.jump !== null) {
+            this.index = result.jump;
+        } else {
+            this.getNextIndex();
+        }
     }
 
     isFinished() {
